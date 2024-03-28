@@ -20,17 +20,12 @@ Architecture: all
 Depends: ${misc:Depends},
          ${python3:Depends}
 Description: Backported and Experimental Type Hints for Python
- The typing module was added to the standard library in Python 3.5 on a
- provisional basis and will no longer be provisional in Python 3.7. However,
- this means users of Python 3.5 - 3.6 who are unable to upgrade will not be
- able to take advantage of new types added to the typing module, such as
- typing.Text or typing.Coroutine.
+ The "typing_extensions" module serves two related purposes:
  .
- The typing_extensions module contains both backports of these changes as well
- as experimental types that will eventually be added to the typing module, such
- as Protocol.
+ 1. Enable use of new type system features on older Python versions.
+ 2. Enable experimentation with new type system PEPs before they are accepted
+    and added to the "typing" module.
  .
- Users of other Python versions should continue to install and use the typing
- module from PyPI instead of using this one unless specifically writing code
- that must be compatible with multiple Python versions or requires experimental
- types.
+ "typing_extensions" is treated specially by static type checkers such as mypy
+ and pyright. Objects defined in "typing_extensions" are treated the same
+ way as equivalent forms in "typing".
