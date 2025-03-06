@@ -1,3 +1,38 @@
+python-typing-extensions (4.12.2-2) unstable; urgency=medium
+
+  * Mark as Multi-Arch: foreign (closes: #1078035).
+  * Standards-Version: 4.7.0 (no changes required).
+
+ -- Colin Watson <cjwatson@debian.org>  Tue, 06 Aug 2024 12:35:52 +0100
+
+python-typing-extensions (4.12.2-1) unstable; urgency=medium
+
+  * New upstream release.
+  * Add myself to Uploaders (closes: #1041823).
+
+ -- Colin Watson <cjwatson@debian.org>  Sun, 09 Jun 2024 20:20:05 +0100
+
+python-typing-extensions (4.12.1-1) unstable; urgency=medium
+
+  * Team upload.
+  * New upstream release.
+
+ -- Colin Watson <cjwatson@debian.org>  Tue, 04 Jun 2024 18:59:26 +0100
+
+python-typing-extensions (4.12.0-1) unstable; urgency=medium
+
+  * Team upload.
+  * New upstream release.
+
+ -- Colin Watson <cjwatson@debian.org>  Sun, 26 May 2024 11:39:21 +0100
+
+python-typing-extensions (4.11.0-1) unstable; urgency=medium
+
+  * Team upload.
+  * New upstream release.
+
+ -- Colin Watson <cjwatson@debian.org>  Thu, 16 May 2024 22:22:15 +0100
+
 python-typing-extensions (4.10.0-1) unstable; urgency=medium
 
   * Team upload.

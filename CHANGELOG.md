@@ -1,3 +1,109 @@
+# Release 4.12.2 (June 7, 2024)
+
+- Fix regression in v4.12.0 where specialization of certain
+  generics with an overridden `__eq__` method would raise errors.
+  Patch by Jelle Zijlstra.
+- Fix tests so they pass on 3.13.0b2
+
+# Release 4.12.1 (June 1, 2024)
+
+- Preliminary changes for compatibility with the draft implementation
+  of PEP 649 in Python 3.14. Patch by Jelle Zijlstra.
+- Fix regression in v4.12.0 where nested `Annotated` types would cause
+  `TypeError` to be raised if the nested `Annotated` type had unhashable
+  metadata. Patch by Alex Waygood.
+
+# Release 4.12.0 (May 23, 2024)
+
+This release is mostly the same as 4.12.0rc1 but fixes one more
+longstanding bug.
+
+- Fix incorrect behaviour of `typing_extensions.ParamSpec` on Python 3.8 and
+  3.9 that meant that
+  `isinstance(typing_extensions.ParamSpec("P"), typing.TypeVar)` would have a
+  different result in some situations depending on whether or not a profiling
+  function had been set using `sys.setprofile`. Patch by Alex Waygood.
+
+# Release 4.12.0rc1 (May 16, 2024)
+
+This release focuses on compatibility with the upcoming release of
+Python 3.13. Most changes are related to the implementation of type
+parameter defaults (PEP 696).
+
+Thanks to all of the people who contributed patches, especially Alex
+Waygood, who did most of the work adapting typing-extensions to the
+CPython PEP 696 implementation.
+
+Full changelog:
+
+- Improve the implementation of type parameter defaults (PEP 696)
+  - Backport the `typing.NoDefault` sentinel object from Python 3.13.
+    TypeVars, ParamSpecs and TypeVarTuples without default values now have
+    their `__default__` attribute set to this sentinel value.
+  - TypeVars, ParamSpecs and TypeVarTuples now have a `has_default()`
+    method, matching `typing.TypeVar`, `typing.ParamSpec` and
+    `typing.TypeVarTuple` on Python 3.13+.
+  - TypeVars, ParamSpecs and TypeVarTuples with `default=None` passed to
+    their constructors now have their `__default__` attribute set to `None`
+    at runtime rather than `types.NoneType`.
+  - Fix most tests for `TypeVar`, `ParamSpec` and `TypeVarTuple` on Python
+    3.13.0b1 and newer.
+  - Backport CPython PR [#118774](https://github.com/python/cpython/pull/118774),
+    allowing type parameters without default values to follow those with
+    default values in some type parameter lists. Patch by Alex Waygood,
+    backporting a CPython PR by Jelle Zijlstra.
+  - It is now disallowed to use a `TypeVar` with a default value after a
+    `TypeVarTuple` in a type parameter list. This matches the CPython
+    implementation of PEP 696 on Python 3.13+.
+  - Fix bug in PEP-696 implementation where a default value for a `ParamSpec`
+    would be cast to a tuple if a list was provided.
+    Patch by Alex Waygood.
+- Fix `Protocol` tests on Python 3.13.0a6 and newer. 3.13.0a6 adds a new
+  `__static_attributes__` attribute to all classes in Python,
+  which broke some assumptions made by the implementation of
+  `typing_extensions.Protocol`. Similarly, 3.13.0b1 adds the new
+  `__firstlineno__` attribute to all classes.
+- Fix `AttributeError` when using `typing_extensions.runtime_checkable`
+  in combination with `typing.Protocol` on Python 3.12.2 or newer.
+  Patch by Alex Waygood.
+- At runtime, `assert_never` now includes the repr of the argument
+  in the `AssertionError`. Patch by Hashem, backporting of the original
+  fix https://github.com/python/cpython/pull/91720 by Jelle Zijlstra.
+- The second and third parameters of `typing_extensions.Generator`,
+  and the second parameter of `typing_extensions.AsyncGenerator`,
+  now default to `None`. This matches the behaviour of `typing.Generator`
+  and `typing.AsyncGenerator` on Python 3.13+.
+- `typing_extensions.ContextManager` and
+  `typing_extensions.AsyncContextManager` now have an optional second
+  parameter, which defaults to `Optional[bool]`. The new parameter
+  signifies the return type of the `__(a)exit__` method, matching
+  `typing.ContextManager` and `typing.AsyncContextManager` on Python
+  3.13+.
+- Backport `types.CapsuleType` from Python 3.13.
+- Releases are now made using [Trusted Publishers](https://docs.pypi.org/trusted-publishers/)
+  improving the security of the release process. Patch by Jelle Zijlstra.
+
+# Release 4.12.0a1 and 4.12.0a2 (May 16, 2024)
+
+These releases primarily test a revised release workflow. If all goes
+well, release 4.12.0rc1 will follow soon.
+
+# Release 4.11.0 (April 5, 2024)
+
+This feature release provides improvements to various recently
+added features, most importantly type parameter defaults (PEP 696).
+
+There are no changes since 4.11.0rc1.
+
+# Release 4.11.0rc1 (March 24, 2024)
+
+- Fix tests on Python 3.13.0a5. Patch by Jelle Zijlstra.
+- Fix the runtime behavior of type parameters with defaults (PEP 696).
+  Patch by Nadir Chowdhury.
+- Fix minor discrepancy between error messages produced by `typing`
+  and `typing_extensions` on Python 3.10. Patch by Jelle Zijlstra.
+- When `include_extra=False`, `get_type_hints()` now strips `ReadOnly` from the annotation.
+
 # Release 4.10.0 (February 24, 2024)
 
 This feature release adds support for PEP 728 (TypedDict with extra
