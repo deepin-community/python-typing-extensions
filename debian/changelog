@@ -1,3 +1,9 @@
+python-typing-extensions (4.13.2-2) unstable; urgency=medium
+
+  * Rebuild with LTO enabled (dpkg vendor feature optimize/lto).
+
+ -- tunaichao <tunaichao@uniontech.com>  Thu, 10 Sep 2026 20:12:36 +0800
+
 python-typing-extensions (4.13.2-1) unstable; urgency=medium
 
   * New upstream release.
